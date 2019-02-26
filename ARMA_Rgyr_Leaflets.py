@@ -92,7 +92,7 @@ a0_Tails,b0_Tails, rho0_Tails = arma_estimate(Rgyr0_Tails.flatten('F'), 20, 20, 
 a1_Heads,b1_Heads, rho1_Heads = arma_estimate(Rgyr1_Heads.flatten('F'), 20, 20, 40)
 a1_Tails,b1_Tails, rho1_Tails = arma_estimate(Rgyr1_Tails.flatten('F'), 20, 20, 40)
 
-# ARMA(20, 20) Model; Autoregressive and Moving Average parameters. Note: flatten('F') takes the 2D array "Gyration Tensor" and vectorizes it.
+# ARMA(20, 20) Model. Autoregressive and Moving Average parameters. Note: flatten('F') takes the 2D array "Gyration Tensor" and vectorizes it.
 
 ##psd  = arma2psd(A = a,B=b,  rho=rho,  sides ='centerdc', NFFT=4096)
 
