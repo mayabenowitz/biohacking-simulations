@@ -62,8 +62,6 @@ Rgyr_leaflet0_POPG = np.array(Rgyr_leaflet0_POPG)
 Rgyr_leaflet1_POPE = np.array(Rgyr_leaflet1_POPE)
 Rgyr_leaflet1_POPG = np.array(Rgyr_leaflet1_POPG)
 
-#Rgyr_z = [z[1] for z in Rgyr]
-
 ar_POPE, ma_POPE, rho_POPE = arma_estimate(Rgyr_POPE.flatten('C'), 300, 300, 600)
 ar_POPG, ma_POPG, rho_POPG = arma_estimate(Rgyr_POPG.flatten('C'), 300, 300, 600)
 
