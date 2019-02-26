@@ -5,36 +5,55 @@ from spectrum import arma_estimate, arma, arma2psd
 from MDAnalysis.analysis.leaflet import LeafletFinder
 
 u = MDAnalysis.Universe('/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
-                        '/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.xtc' )
+                        '/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.xtc' )#Simulation time-series of a 2:1 POPE/POPG lipid bilayer.
 
-L = LeafletFinder(u, 'name P*')
+L = LeafletFinder(u, 'name P*')#Parses .gro and .xtc files for Phosphorus groups P*, i.e., the lipid heads.
 
-leaflet0 = L.groups(0)
-leaflet1 = L.groups(1)
+leaflet0 = L.groups(0)#Upper leaflet.
+leaflet1 = L.groups(1)#Lower leaflet.
+
+#Initialzes POPE and POPG (types of lipids) arrays.
 
 Rgyr_POPE = []
 Rgyr_POPG = []
 
+#Initializes upper and lower leaflet arrays.
+
 Rgyr_leaflet0 = []
 Rgyr_leaflet1 = []
+
+#Initializes POPE and POPG upper leaflet arrays.
 
 Rgyr_leaflet0_POPE = []
 Rgyr_leaflet0_POPG = []
 
+#Initializes POPE and POPG lower leaflet arrays.
+
 Rgyr_leaflet1_POPE = []
 Rgyr_leaflet1_POPG = []
+
+#Instance 1: grabs atoms of the POPE and POPG lipids from the entire membrane.
 
 lipids_POPE = u.select_atoms("resname POPE")
 lipids_POPG = u.select_atoms("resname POPG")
 
+#Instance 2: grabs all atoms in upper and lower leaflets.
+
 lipids0 = leaflet0.residues.atoms
 lipids1 = leaflet1.residues.atoms
+
+#Instance 3: grabs atoms of the POPE and POPG lipids in the upper leaflet.
 
 lipids0_POPE = leaflet0.select_atoms("resname POPE")
 lipids0_POPG = leaflet0.select_atoms("resname POPG")
 
+#Instance 4: grabs atoms of the POPE and POPG lipids in the lower leaflet.
+
 lipids1_POPE = leaflet1.select_atoms("resname POPE")
 lipids1_POPG = leaflet1.select_atoms("resname POPG")
+
+#Calculates the radius of gyration (i.e., the shape) of the above instances for every
+#10 nanosecond (ns) interval of the simulation and stores the numerical values (in angstroms) in the above arrays.
 
 for ts in u.trajectory:
 
@@ -62,6 +81,8 @@ Rgyr_leaflet0_POPG = np.array(Rgyr_leaflet0_POPG)
 Rgyr_leaflet1_POPE = np.array(Rgyr_leaflet1_POPE)
 Rgyr_leaflet1_POPG = np.array(Rgyr_leaflet1_POPG)
 
+#ARMA model of above instances. (See documentation linked in the description for discussion of parameter choice.)
+
 ar_POPE, ma_POPE, rho_POPE = arma_estimate(Rgyr_POPE.flatten('C'), 300, 300, 600)
 ar_POPG, ma_POPG, rho_POPG = arma_estimate(Rgyr_POPG.flatten('C'), 300, 300, 600)
 
@@ -74,6 +95,7 @@ ar_leaflet0_POPG, ma_leaflet0_POPG, rho_leaflet0_POPG = arma_estimate(Rgyr_leafl
 ar_leaflet1_POPE, ma_leaflet1_POPE, rho_leaflet1_POPE = arma_estimate(Rgyr_leaflet1_POPE.flatten('C'), 300, 300, 600)
 ar_leaflet1_POPG, ma_leaflet1_POPG, rho_leaflet1_POPG = arma_estimate(Rgyr_leaflet1_POPG.flatten('C'), 300, 300, 600)
 
+#Power spectrum analysis of above ARMA model. (See documentation linked in the description for discussion of parameter choice.)
 
 psd_POPE = arma2psd(A=ar_POPE, B=ma_POPE, rho=rho_POPE, sides ='centerdc', NFFT=4096)
 psd_POPG = arma2psd(A=ar_POPG, B=ma_POPG, rho=rho_POPG, sides='centerdc', NFFT=4096)
@@ -87,6 +109,7 @@ psd_leaflet0_POPG = arma2psd(A=ar_leaflet0_POPG, B=ma_leaflet0_POPG, rho=rho_lea
 psd_leaflet1_POPE = arma2psd(A=ar_leaflet1_POPE, B=ma_leaflet1_POPE, rho=rho_leaflet1_POPE, sides ='centerdc', NFFT=4096)
 psd_leaflet1_POPG = arma2psd(A=ar_leaflet1_POPG, B=ma_leaflet1_POPG, rho=rho_leaflet1_POPG, sides ='centerdc', NFFT=4096)
 
+#Plots results of above analyses.
 
 plt.subplot(2,1,1)
 POPE, = plt.loglog(psd_POPE, 'r-', label="POPE")
