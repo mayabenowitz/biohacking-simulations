@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from spectrum import arma_estimate, arma, arma2psd
 from MDAnalysis.analysis.leaflet import LeafletFinder
 
-u = MDAnalysis.Universe('/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
-                        '/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.xtc' )#Simulation time-series of a 2:1 POPE/POPG lipid bilayer.
+u = MDAnalysis.Universe('/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
+                        '/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer.xtc' )#Simulation time-series of a 2:1 POPE/POPG lipid bilayer.
 
 L = LeafletFinder(u, 'name P*')#Parses .gro files for Phosphorus groups P*, i.e., the lipid heads.
 
