@@ -120,7 +120,6 @@ psd1_Tails = arma2psd(A=a1_Tails, B=b1_Tails, rho=rho1_Tails, sides ='centerdc',
 
 UL, = plt.plot(10*np.log10(psd0/max(psd0)),'b-', label= "Upper Leaflet")
 LL, = plt.plot(10*np.log10(psd1/max(psd1)), 'r-', label= "Lower Leaflet")
-##plt.plot(10*np.log(psd/max(psd)), 'g-')
 
 first_legend = plt.legend(handles=[UL,LL], loc=1)
 ax = plt.gca().add_artist(first_legend)
