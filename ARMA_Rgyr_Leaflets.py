@@ -116,7 +116,7 @@ psd0_Tails = arma2psd(A=a0_Tails, B=b0_Tails, rho=rho0_Tails, sides ='centerdc',
 psd1_Heads = arma2psd(A=a1_Heads, B=b1_Heads, rho=rho1_Heads, sides ='centerdc', NFFT=4096)
 psd1_Tails = arma2psd(A=a1_Tails, B=b1_Tails, rho=rho1_Tails, sides ='centerdc', NFFT=4096)
 
-#Plot final results.
+#Plot final results on a log scale.
 
 UL, = plt.plot(10*np.log10(psd0/max(psd0)),'b-', label= "Upper Leaflet")
 LL, = plt.plot(10*np.log10(psd1/max(psd1)), 'r-', label= "Lower Leaflet")
