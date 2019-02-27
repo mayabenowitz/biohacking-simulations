@@ -7,7 +7,7 @@ from MDAnalysis.analysis.leaflet import LeafletFinder
 u = MDAnalysis.Universe('/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
                         '/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.xtc' )#Simulation time-series of a 2:1 POPE/POPG lipid bilayer.
 
-L = LeafletFinder(u, 'name P*')#Parses .gro and .xtc files for Phosphorus groups P*, i.e., the lipid heads.
+L = LeafletFinder(u, 'name P*')#Parses .gro files for Phosphorus groups P*, i.e., the lipid heads.
 
 leaflet0 = L.groups(0)#Upper leaflet.
 leaflet1 = L.groups(1)#Lower leaflet.
