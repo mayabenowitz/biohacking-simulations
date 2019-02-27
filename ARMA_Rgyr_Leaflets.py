@@ -5,9 +5,9 @@ from spectrum import arma_estimate, arma, arma2psd
 from MDAnalysis.analysis.leaflet import LeafletFinder
 
 u = MDAnalysis.Universe('/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
-                        '/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer_trunc.xtc' )
+                        '/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer_trunc.xtc' )# 2:1 POPE/POPG simulation time-series data
 
-L = LeafletFinder(u, 'name P*')
+L = LeafletFinder(u, 'name P*')#Parses .gro file for phosphorous groups, i.e., lipids.
 
 leaflet0 = L.groups(0)
 leaflet1 = L.groups(1)
