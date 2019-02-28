@@ -1,3 +1,10 @@
+#This script analyzes the shape statistics of a 2:1 POPE/POPG lipid bilayer simulated with Gromacs.
+#I decompose the bilayer into four groups as follows: (1) atoms in the POPG and POPE lipids, (2) atoms in the upper and lower
+#leaflets, (3) atoms in the head-and-tailgroups in the upper leaflet, and (4) atoms in the head-and-tailgroups in the lower
+#leaflet. I then take a snapshot of the simulation every 10 nanoseconds and compute the radius of gyration for each group of
+#atoms. Finally, the radius of gyration time-series data is fed to the ARMA model and the power spectral density (PSD) is calculated
+#and plotted.
+
 import MDAnalysis
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,10 +14,10 @@ from MDAnalysis.analysis.leaflet import LeafletFinder
 u = MDAnalysis.Universe('/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
                         '/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer_trunc.xtc' )#Simulation time-series data of a 2:1 POPE/POPG lipid bilayer.
 
-L = LeafletFinder(u, 'name P*')#Parse .gro file for phosphorous groups, i.e., the lipid heads.
+L = LeafletFinder(u, 'name P*')#Parses .gro file for phosphorous groups, i.e., the lipid heads.
 
-leaflet0 = L.groups(0)#Define upper leaflet.
-leaflet1 = L.groups(1)#Define lower leaflet.
+leaflet0 = L.groups(0)#Defines upper leaflet.
+leaflet1 = L.groups(1)#Defines lower leaflet.
 
 #Initialize POPG and POPE arrays.
 
@@ -83,7 +90,7 @@ for ts in u.trajectory: #Takes a snapshot of the simulation every 10 nanoseconds
     Rgyr1_Heads.append((u.trajectory.time, lipids1_Heads.radius_of_gyration()))
     Rgyr1_Tails.append((u.trajectory.time, lipids1_Tails.radius_of_gyration()))
     
-#Store (time, radius of gyration) values in 2D arrays.
+#Store (time, radius of gyration) values for each group of atoms as 2D arrays.
 
 Rgyr0 = np.array(Rgyr0)
 Rgyr1 = np.array(Rgyr1)
