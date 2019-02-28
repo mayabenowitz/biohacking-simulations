@@ -5,8 +5,8 @@ import matplotlib.mlab as mlab
 from scipy.stats import norm
 import random
 
-u = MDAnalysis.Universe('/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
-                        '/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer_trunc.xtc' )#Simulation time-series data of a 2:1 POPE/POPG lipid bilayer.
+u = MDAnalysis.Universe('/ExtDrive/maya/Data/Simulation/pepg_bilayer/step7_1/bilayer.gro',
+                        '/ExtDrive/maya/Data/Simulation/pepg_bilayer/step7_1/bilayer_trunc.xtc' )#Simulation time-series data of a 2:1 POPE/POPG lipid bilayer.
 
 #Randomly sample 101 POPE and POPG lipids and store them as a list of resid numbers.
 
