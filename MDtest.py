@@ -5,9 +5,10 @@ import matplotlib.mlab as mlab
 from scipy.stats import norm
 import random
 
-u = MDAnalysis.Universe('/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
-                        '/home/jarod/Documents/Simulation/pepg_bilayer/step7_1/bilayer_trunc.xtc' )
+u = MDAnalysis.Universe('/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer.gro',
+                        '/home/maya/Documents/Simulation/pepg_bilayer/step7_1/bilayer_trunc.xtc' )#Simulation time-series data of a 2:1 POPE/POPG lipid bilayer.
 
+#Randomly sample 101 POPE and POPG lipids and store them as a list of resid numbers.
 
 random_sample_POPE = list(random.sample(range(0,224), 101))
 random_sample_POPG = list(random.sample(range(225, 336), 101))
@@ -24,18 +25,26 @@ l2_POPE = ' or '.join(str(i) for i in l1_POPE)
 l1_POPG =['resid '+ i for i in str2_POPG]
 l2_POPG = ' or '.join(str(i) for i in l1_POPG)
 
+#Grab the POPG and POPE atoms in respective lists.
 
 POPG_lipids = u.select_atoms(l2_POPG)
 POPE_lipids = u.select_atoms(l2_POPE)
 
+#Set two counters to zero.
+
 i = 0
 j = 0
+
+#Initialize the mean (sigma) and standard deviation (mu) arrays for POPE and POPG.
 
 POPE_sigma_array = []
 POPE_mu_array = []
 
 POPG_mu_array = []
 POPG_sigma_array = []
+
+#Calculate the radius of gyration for each randomly sampled POPE and POPG lipid.
+#Calculate the mean and standard deviation and store in above arrays.
 
 while i < len(random_sample_POPE) and j < len(random_sample_POPG):
 
@@ -63,10 +72,8 @@ while i < len(random_sample_POPE) and j < len(random_sample_POPG):
 
     POPG_mu_array.append(mu2)
     POPG_sigma_array.append(sigma2)
-
-
-# print POPE_mu_array
-# print POPG_mu_array
+    
+#Plot histograms.
 
 plt.subplot(2,1,1)
 
