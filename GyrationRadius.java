@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author MPbenowitz
  */
-// WARNING! The system's center of mass must be set to zero for each timestep.
+// WARNING! The system's center of mass must be set to zero for each timestep!
 public class GyrationRadius {
 
     private static final Logger logger = Logger.getLogger(GyrationRadius.class.getName());
